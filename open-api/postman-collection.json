@@ -12,7 +12,13 @@
 					"name": "/users",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{API_DOMAIN_NAME}}/users",
 							"host": [
@@ -30,7 +36,13 @@
 					"name": "/user?id=",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{API_DOMAIN_NAME}}/user?id=62b595924cf47bdddc596d8f",
 							"host": [
@@ -54,10 +66,16 @@
 					"name": "/user/create",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"ac@foo.com\",\r\n    \"firstName\": \"Allan\",\r\n    \"lastName\": \"Chua\"\r\n}",
+							"raw": "{\r\n    \"email\": \"ac@foo.com\",\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Doe\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -82,7 +100,13 @@
 					"name": "/user/delete",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"id\": \"62b591f5e43712e6d8d9d531\"\r\n}",
@@ -110,7 +134,13 @@
 					"name": "/user/update",
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"id\": \"62b595924cf47bdddc596d8f\",\r\n    \"email\": \"ac@foo.com\",\r\n    \"firstName\": \"Allan v2\",\r\n    \"lastName\": \"Chua v2\"\r\n}",
@@ -158,7 +188,13 @@
 							],
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT_TOKEN}}",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "",
@@ -199,7 +235,13 @@
 							],
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT_TOKEN}}",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"email\": \"\",\r\n    \"firstName\": \"Allan\",\r\n    \"lastName\": \"Chua\"\r\n}",
@@ -240,7 +282,13 @@
 							],
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT_TOKEN}}",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"email\": \"ac@foo.com\",\r\n    \"firstName\": \"\",\r\n    \"lastName\": \"Chua\"\r\n}",
@@ -281,7 +329,13 @@
 							],
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT_TOKEN}}",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"email\": \"ac@foo.com\",\r\n    \"firstName\": \"Allan\",\r\n    \"lastName\": \"\"\r\n}",
@@ -326,6 +380,32 @@
 				"description": "Root endpoint used for health checks"
 			},
 			"response": []
+		},
+		{
+			"name": "/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"allan\",\r\n    \"password\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_DOMAIN_NAME}}/login",
+					"host": [
+						"{{API_DOMAIN_NAME}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -352,6 +432,10 @@
 		{
 			"key": "API_DOMAIN_NAME",
 			"value": "http://localhost:3000"
+		},
+		{
+			"key": "JWT_TOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsbGFuIiwicGFzc3dvcmQiOiIxMjM0NSIsImV4cGlyeSI6Ikp1biAyMCwgMjAyMiIsImlhdCI6MTY1NjA3ODA4MX0.ajZ-9_bld8RpV9JP-eqf8A6_XVHM-q2PQibd0RNhSHY"
 		}
 	]
 }
