@@ -7,7 +7,7 @@ POC for simple integration between Fastify and MongoDB with Swagger and Postman 
 - Authentication using JWT Tokens `@fastify/jwt`
 - Endpoint protection using JWT Tokens `@fastify/jwt`
 - Seamless integration to MongoDB using `@fastify/mongodb`
-- Seamless swagger introduction using `@fastify/swagger`
+- Seamless swagger integration using `@fastify/swagger`
 
 # Import Postman Collection
 
