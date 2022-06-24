@@ -1,0 +1,357 @@
+{
+	"info": {
+		"_postman_id": "319baa96-d40f-40c1-ae68-741b4e615277",
+		"name": "Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User APIs",
+			"item": [
+				{
+					"name": "/users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_DOMAIN_NAME}}/users",
+							"host": [
+								"{{API_DOMAIN_NAME}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "API used for retrieving list of users in the system."
+					},
+					"response": []
+				},
+				{
+					"name": "/user?id=",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_DOMAIN_NAME}}/user?id=62b595924cf47bdddc596d8f",
+							"host": [
+								"{{API_DOMAIN_NAME}}"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "62b595924cf47bdddc596d8f"
+								}
+							]
+						},
+						"description": "API used for retrieving user by ID.\n\n### Parameters\n\n`id` - ID of desired user.\n\n### Response Codes\n\n- `200` - Success\n- `422` - Invalid parameter received\n- `404` - User not found"
+					},
+					"response": []
+				},
+				{
+					"name": "/user/create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ac@foo.com\",\r\n    \"firstName\": \"Allan\",\r\n    \"lastName\": \"Chua\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_DOMAIN_NAME}}/user/create",
+							"host": [
+								"{{API_DOMAIN_NAME}}"
+							],
+							"path": [
+								"user",
+								"create"
+							]
+						},
+						"description": "API used for creating new users.\n\n### Request Body\n\n```json\n{\n   \"email\": \"string\",\n   \"firstName\": \"string\",\n   \"lastName\": \"string\",\n}\n```\n\n### Constraints\n\n- `email` - Max length (128 characters)\n- `firstName` - Max length (64 characters)\n- `lastName` - Max length (64 characters)\n\n### Response Codes\n\n- `200` - Success\n- `422` - Invalid payload"
+					},
+					"response": []
+				},
+				{
+					"name": "/user/delete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"62b591f5e43712e6d8d9d531\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_DOMAIN_NAME}}/user/delete",
+							"host": [
+								"{{API_DOMAIN_NAME}}"
+							],
+							"path": [
+								"user",
+								"delete"
+							]
+						},
+						"description": "API used for deleting user records.\n\n### Request Body\n\n```json\n{\n  \"id\": \"uuid\",\n}\n```\n\n### Response Codes\n\n- `200` - Successfully deleted user\n- `422` - Invalid payload\n- `404` - User does not exists\n- `500` - Internal server error"
+					},
+					"response": []
+				},
+				{
+					"name": "/user/update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"62b595924cf47bdddc596d8f\",\r\n    \"email\": \"ac@foo.com\",\r\n    \"firstName\": \"Allan v2\",\r\n    \"lastName\": \"Chua v2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_DOMAIN_NAME}}/user/update",
+							"host": [
+								"{{API_DOMAIN_NAME}}"
+							],
+							"path": [
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users Invalid Payloads",
+			"item": [
+				{
+					"name": "/user/create",
+					"item": [
+						{
+							"name": "Empty body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"/user/create Should respond with 422 if body is empty\", () => {\r",
+											"    pm.response.to.have.status(422);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_DOMAIN_NAME}}/user/create",
+									"host": [
+										"{{API_DOMAIN_NAME}}"
+									],
+									"path": [
+										"user",
+										"create"
+									]
+								},
+								"description": "API used for creating new users.\n\n### Request Body\n\n```json\n{\n   \"email\": \"string\",\n   \"firstName\": \"string\",\n   \"lastName\": \"string\",\n}\n```\n\n### Constraints\n\n- `email` - Max length (128 characters)\n- `firstName` - Max length (64 characters)\n- `lastName` - Max length (64 characters)\n\n### Response Codes\n\n- `200` - Success\n- `422` - Invalid payload"
+							},
+							"response": []
+						},
+						{
+							"name": "No email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"/user/create Should respond with 422 if email is empty\", () => {\r",
+											"    pm.response.to.have.status(422);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"\",\r\n    \"firstName\": \"Allan\",\r\n    \"lastName\": \"Chua\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_DOMAIN_NAME}}/user/create",
+									"host": [
+										"{{API_DOMAIN_NAME}}"
+									],
+									"path": [
+										"user",
+										"create"
+									]
+								},
+								"description": "API used for creating new users.\n\n### Request Body\n\n```json\n{\n   \"email\": \"string\",\n   \"firstName\": \"string\",\n   \"lastName\": \"string\",\n}\n```\n\n### Constraints\n\n- `email` - Max length (128 characters)\n- `firstName` - Max length (64 characters)\n- `lastName` - Max length (64 characters)\n\n### Response Codes\n\n- `200` - Success\n- `422` - Invalid payload"
+							},
+							"response": []
+						},
+						{
+							"name": "No first name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"/user/create Should respond with 422 if firstName is empty\", () => {\r",
+											"    pm.response.to.have.status(422);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"ac@foo.com\",\r\n    \"firstName\": \"\",\r\n    \"lastName\": \"Chua\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_DOMAIN_NAME}}/user/create",
+									"host": [
+										"{{API_DOMAIN_NAME}}"
+									],
+									"path": [
+										"user",
+										"create"
+									]
+								},
+								"description": "API used for creating new users.\n\n### Request Body\n\n```json\n{\n   \"email\": \"string\",\n   \"firstName\": \"string\",\n   \"lastName\": \"string\",\n}\n```\n\n### Constraints\n\n- `email` - Max length (128 characters)\n- `firstName` - Max length (64 characters)\n- `lastName` - Max length (64 characters)\n\n### Response Codes\n\n- `200` - Success\n- `422` - Invalid payload"
+							},
+							"response": []
+						},
+						{
+							"name": "No last name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"/user/create Should respond with 422 if last name is empty\", () => {\r",
+											"    pm.response.to.have.status(422);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"ac@foo.com\",\r\n    \"firstName\": \"Allan\",\r\n    \"lastName\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_DOMAIN_NAME}}/user/create",
+									"host": [
+										"{{API_DOMAIN_NAME}}"
+									],
+									"path": [
+										"user",
+										"create"
+									]
+								},
+								"description": "API used for creating new users.\n\n### Request Body\n\n```json\n{\n   \"email\": \"string\",\n   \"firstName\": \"string\",\n   \"lastName\": \"string\",\n}\n```\n\n### Constraints\n\n- `email` - Max length (128 characters)\n- `firstName` - Max length (64 characters)\n- `lastName` - Max length (64 characters)\n\n### Response Codes\n\n- `200` - Success\n- `422` - Invalid payload"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_DOMAIN_NAME}}/",
+					"host": [
+						"{{API_DOMAIN_NAME}}"
+					],
+					"path": [
+						""
+					]
+				},
+				"description": "Root endpoint used for health checks"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API_DOMAIN_NAME",
+			"value": "http://localhost:3000"
+		}
+	]
+}
